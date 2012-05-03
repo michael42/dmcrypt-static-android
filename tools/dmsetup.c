@@ -35,7 +35,6 @@
 #include <unistd.h>
 #include <sys/param.h>
 #include <locale.h>
-#include <langinfo.h>
 #include <time.h>
 
 #include <fcntl.h>
@@ -3087,10 +3086,8 @@ static int _process_tree_options(const char *options)
 	size_t len;
 
 	/* Symbol set default */
-	if (!strcmp(nl_langinfo(CODESET), "UTF-8"))
-		_tsym = &_tsym_utf;
-	else
-		_tsym = &_tsym_ascii;
+	// nl_langinfo(CODESET) is not available, assume ascii
+	_tsym = &_tsym_ascii;
 
 	/* Default */
 	_tree_switches[TR_DEVICE] = 1;

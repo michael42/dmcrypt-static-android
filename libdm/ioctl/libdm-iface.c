@@ -173,15 +173,24 @@ static int _get_proc_number(const char *file, const char *name,
 	FILE *fl;
 	char nm[256];
 	char *line = NULL;
-	size_t len;
+	size_t len = 4096; // == LINE_SIZE from tools/dmsetup.c
 	uint32_t num;
 
 	if (!(fl = fopen(file, "r"))) {
 		log_sys_error("fopen", file);
 		return 0;
 	}
+#ifndef HAVE_GETLINE
+	int buffer_size;
+	if (!(line = dm_malloc(len))) {
+		log_sys_error("Failed to malloc line buffer.", file);
+		return 0;
+	}
 
+	while (fgets(line, (int) len, fl)) {
+#else
 	while (getline(&line, &len, fl) != -1) {
+#endif
 		if (sscanf(line, "%d %255s\n", &num, &nm[0]) == 2) {
 			if (!strcmp(name, nm)) {
 				if (number) {
@@ -197,7 +206,12 @@ static int _get_proc_number(const char *file, const char *name,
 	}
 	if (fclose(fl))
 		log_sys_error("fclose", file);
+
+#ifndef HAVE_GETLINE
+	dm_free(line);
+#else
 	free(line);
+#endif
 
 	if (number) {
 		log_error("%s: No entry for %s found", file, name);
