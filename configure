@@ -4956,7 +4956,7 @@ fi
 
 
 for ac_header in locale.h stddef.h syslog.h sys/file.h sys/time.h assert.h \
-  langinfo.h libgen.h signal.h sys/mman.h sys/resource.h sys/utsname.h \
+  libgen.h signal.h sys/mman.h sys/resource.h sys/utsname.h \
   sys/wait.h time.h
 do :
   as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
@@ -5435,8 +5435,8 @@ fi
 
 
 ################################################################################
-for ac_func in ftruncate gethostname getpagesize \
-  gettimeofday memset mkdir mkfifo rmdir munmap nl_langinfo setenv setlocale \
+for ac_func in ftruncate gethostname \
+  gettimeofday memset mkdir rmdir munmap setenv setlocale \
   strcasecmp strchr strcspn strspn strdup strncasecmp strerror strrchr \
   strstr strtol strtoul uname
 do :
@@ -9794,7 +9794,7 @@ done
 fi
 
 if test x$CLVMD != xnone; then
-	for ac_header in mntent.h netdb.h netinet/in.h pthread.h search.h sys/mount.h sys/socket.h sys/uio.h sys/un.h utmpx.h
+	for ac_header in mntent.h netdb.h netinet/in.h pthread.h search.h sys/mount.h sys/socket.h sys/uio.h utmpx.h
 do :
   as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
 ac_fn_c_check_header_mongrel "$LINENO" "$ac_header" "$as_ac_Header" "$ac_includes_default"
@@ -9965,7 +9965,7 @@ rm -f conftest*
 fi
 
 if test x$CLUSTER != xnone; then
-	for ac_header in sys/socket.h sys/un.h
+	for ac_header in sys/socket.h
 do :
   as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
 ac_fn_c_check_header_mongrel "$LINENO" "$ac_header" "$as_ac_Header" "$ac_includes_default"
